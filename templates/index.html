@@ -1,0 +1,90 @@
+<html>
+<head>
+  <title>Departures</title>
+</head>
+<body>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Departure</h1>
+      <p class="lead">Timetable from {{data[0]['stop']}} </p> 
+      
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Choose Station</button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="8600681">Allerød St.</a>
+            <a class="dropdown-item" href="8600678">Birkerød St.</a>            
+            <a class="dropdown-item" href="8600626">København H</a>
+            <a class="dropdown-item" href="8600646">Nørreport St.</a>
+
+          </div>
+        </div>
+        
+      </div>      
+
+<table class="table"> 
+    <thead class="thead-dark">
+<thead>
+<tr>
+  <th scope="col1">Time</th>
+  <th scope="col2">Name</th>
+  <th scope="col3">Direction</th>
+  <th scope="col4">State</th>
+  <th scope="col5">Type</th>
+</tr>
+  
+</thead>    
+
+departure
+      
+<!-- For loop logic of jinja template -->
+
+{% for d in data %}
+<!-- table rows -->
+<tr> 
+    
+
+    {% if d['rtTime'] is defined %}
+      <td>{{d['rtTime']}}</td> 
+      {% else %}
+      <td>{{d['time']}}</td> 
+    {% endif %}
+    <td>{{d['name']}}</td> 
+    <td>{{d['direction']}}</td>     
+    <td class="text-warning">{{d['state']}}</td>  
+    {% if d['name'] in 'ABCDEFH' %}
+      <td><img src="http://res.moviatrafik.dk/infotainment/16_9/S-tog.png" alt="S-tog" height=40 width=45></img></td>
+      {% elif d['type']== 'IC'  %}
+      <td><img src="http://res.moviatrafik.dk/infotainment/16_9/Tog.png" alt="Tog" height=40 width=45></img></td>
+      {% elif d['type']== 'REG'  %}
+      <td><img src="http://res.moviatrafik.dk/infotainment/16_9/Tog.png" alt="Tog" height=40 width=45></img></td>
+      {% elif d['type']== 'LYN'  %}
+      <td><img src="http://res.moviatrafik.dk/infotainment/16_9/Tog.png" alt="Tog" height=40 width=45></img></td>
+      {% elif d['type']== 'M'  %}
+      <td><img src="http://res.moviatrafik.dk/infotainment/16_9/Metro.png" alt="Tog" height=40 width=45></img></td>
+      {% elif d['type']== 'TOG'  %}
+      <td><img src="http://res.moviatrafik.dk/infotainment/16_9/Lokaltog.png" alt="Tog" height=40 width=45></img></td>
+
+      {% else %}
+      <td><img src="http://res.moviatrafik.dk/infotainment/16_9/bus.png" alt="Bus" height=40 width=45></img></td>
+    {% endif %}
+  
+{%endfor%} 
+  
+</tr> 
+  
+</table> 
+  
+</div>
+</div>
+  
+</body> 
+</html> 
